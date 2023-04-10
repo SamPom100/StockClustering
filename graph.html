@@ -1,0 +1,167 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        
+            <script src="lib/bindings/utils.js"></script>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/dist/vis-network.min.css" integrity="sha512-WgxfT5LWjfszlPHXRmBWHkV2eceiWTOBvrKCNbdgDYTHrT2AeLCGbF4sZlZw3UMN3WtL0tGUoIAKsu8mllg/XA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/vis-network.min.js" integrity="sha512-LnvoEWDFrqGHlHmDD2101OrLcbsfkrzoSpvtSQtxK3RMnRV0eOkhhBN2dXHKRrUU8p2DGRTk35n4O8nWSVe1mQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+            
+        
+<center>
+<h1></h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+        <link
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
+          crossorigin="anonymous"
+        />
+        <script
+          src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+          crossorigin="anonymous"
+        ></script>
+
+
+        <center>
+          <h1></h1>
+        </center>
+        <style type="text/css">
+
+             #mynetwork {
+                 width: 100%;
+                 height: 600px;
+                 background-color: #ffffff;
+                 border: 1px solid lightgray;
+                 position: relative;
+                 float: left;
+             }
+
+             
+
+             
+             #config {
+                 float: left;
+                 width: 400px;
+                 height: 600px;
+             }
+             
+
+             
+        </style>
+    </head>
+
+
+    <body>
+        <div class="card" style="width: 100%">
+            
+            
+            <div id="mynetwork" class="card-body"></div>
+        </div>
+
+        
+        
+            <div id="config"></div>
+        
+
+        <script type="text/javascript">
+
+              // initialize global variables.
+              var edges;
+              var nodes;
+              var allNodes;
+              var allEdges;
+              var nodeColors;
+              var originalNodes;
+              var network;
+              var container;
+              var options, data;
+              var filter = {
+                  item : '',
+                  property : '',
+                  value : []
+              };
+
+              
+
+              
+
+              // This method is responsible for drawing the graph, returns the drawn network
+              function drawGraph() {
+                  var container = document.getElementById('mynetwork');
+
+                  
+
+                  // parsing and collecting nodes and edges from the python
+                  nodes = new vis.DataSet([{"color": "#97c2fc", "id": "BOXL", "label": "BOXL", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "OSS", "label": "OSS", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "TACT", "label": "TACT", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "DBD", "label": "DBD", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "QMCO", "label": "QMCO", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "HEAR", "label": "HEAR", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "IVAC", "label": "IVAC", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "IMMR", "label": "IMMR", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "CAN", "label": "CAN", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "CMPO", "label": "CMPO", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "PMTS", "label": "PMTS", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "AVID", "label": "AVID", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "IONQ", "label": "IONQ", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "SSYS", "label": "SSYS", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "CRSR", "label": "CRSR", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "XRX", "label": "XRX", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "RICOY", "label": "RICOY", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "SMCI", "label": "SMCI", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "CAJPY", "label": "CAJPY", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "FUJIY", "label": "FUJIY", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "HPE", "label": "HPE", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "HPQ", "label": "HPQ", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "DELL", "label": "DELL", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "NTAP", "label": "NTAP", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "AAPL", "label": "AAPL", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "STX", "label": "STX", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "LNVGY", "label": "LNVGY", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "WDC", "label": "WDC", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "LOGI", "label": "LOGI", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "PSTG", "label": "PSTG", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "ORCL", "label": "ORCL", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "IDAI", "label": "IDAI", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "NOW", "label": "NOW", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "PANW", "label": "PANW", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "VMW", "label": "VMW", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "FTNT", "label": "FTNT", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "MSFT", "label": "MSFT", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "GEN", "label": "GEN", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "CRWD", "label": "CRWD", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "ZS", "label": "ZS", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "CHKP", "label": "CHKP", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "PATH", "label": "PATH", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "DLB", "label": "DLB", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "TMICY", "label": "TMICY", "shape": "dot", "size": 10}]);
+                  edges = new vis.DataSet([{"from": "BOXL", "to": "OSS", "width": 1}, {"from": "BOXL", "to": "TACT", "width": 1}, {"from": "BOXL", "to": "DBD", "width": 1}, {"from": "BOXL", "to": "QMCO", "width": 1}, {"from": "BOXL", "to": "HEAR", "width": 1}, {"from": "OSS", "to": "TACT", "width": 1}, {"from": "OSS", "to": "DBD", "width": 1}, {"from": "OSS", "to": "QMCO", "width": 1}, {"from": "OSS", "to": "HEAR", "width": 1}, {"from": "TACT", "to": "IVAC", "width": 1}, {"from": "TACT", "to": "QMCO", "width": 1}, {"from": "TACT", "to": "HEAR", "width": 1}, {"from": "TACT", "to": "DBD", "width": 1}, {"from": "DBD", "to": "IVAC", "width": 1}, {"from": "DBD", "to": "QMCO", "width": 1}, {"from": "DBD", "to": "HEAR", "width": 1}, {"from": "DBD", "to": "IMMR", "width": 1}, {"from": "QMCO", "to": "IVAC", "width": 1}, {"from": "QMCO", "to": "HEAR", "width": 1}, {"from": "QMCO", "to": "IMMR", "width": 1}, {"from": "HEAR", "to": "CAN", "width": 1}, {"from": "HEAR", "to": "CMPO", "width": 1}, {"from": "HEAR", "to": "PMTS", "width": 1}, {"from": "HEAR", "to": "IVAC", "width": 1}, {"from": "HEAR", "to": "IMMR", "width": 1}, {"from": "AVID", "to": "IONQ", "width": 1}, {"from": "AVID", "to": "SSYS", "width": 1}, {"from": "AVID", "to": "CRSR", "width": 1}, {"from": "AVID", "to": "CMPO", "width": 1}, {"from": "AVID", "to": "XRX", "width": 1}, {"from": "AVID", "to": "RICOY", "width": 1}, {"from": "IONQ", "to": "SSYS", "width": 1}, {"from": "IONQ", "to": "CRSR", "width": 1}, {"from": "IONQ", "to": "CMPO", "width": 1}, {"from": "IONQ", "to": "XRX", "width": 1}, {"from": "SSYS", "to": "CMPO", "width": 1}, {"from": "SSYS", "to": "PMTS", "width": 1}, {"from": "SSYS", "to": "CAN", "width": 1}, {"from": "SSYS", "to": "XRX", "width": 1}, {"from": "SSYS", "to": "CRSR", "width": 1}, {"from": "CRSR", "to": "SMCI", "width": 1}, {"from": "CRSR", "to": "RICOY", "width": 1}, {"from": "CRSR", "to": "XRX", "width": 1}, {"from": "CRSR", "to": "CMPO", "width": 1}, {"from": "CMPO", "to": "CAN", "width": 1}, {"from": "CMPO", "to": "PMTS", "width": 1}, {"from": "CMPO", "to": "IMMR", "width": 1}, {"from": "CMPO", "to": "IVAC", "width": 1}, {"from": "CMPO", "to": "XRX", "width": 1}, {"from": "XRX", "to": "SMCI", "width": 1}, {"from": "XRX", "to": "RICOY", "width": 1}, {"from": "CAJPY", "to": "FUJIY", "width": 1}, {"from": "CAJPY", "to": "HPE", "width": 1}, {"from": "CAJPY", "to": "HPQ", "width": 1}, {"from": "CAJPY", "to": "DELL", "width": 1}, {"from": "CAJPY", "to": "NTAP", "width": 1}, {"from": "CAJPY", "to": "AAPL", "width": 1}, {"from": "FUJIY", "to": "DELL", "width": 1}, {"from": "FUJIY", "to": "HPE", "width": 1}, {"from": "FUJIY", "to": "NTAP", "width": 1}, {"from": "FUJIY", "to": "STX", "width": 1}, {"from": "FUJIY", "to": "LNVGY", "width": 1}, {"from": "FUJIY", "to": "HPQ", "width": 1}, {"from": "FUJIY", "to": "AAPL", "width": 1}, {"from": "HPE", "to": "DELL", "width": 1}, {"from": "HPE", "to": "HPQ", "width": 1}, {"from": "HPE", "to": "AAPL", "width": 1}, {"from": "HPE", "to": "NTAP", "width": 1}, {"from": "HPE", "to": "STX", "width": 1}, {"from": "HPE", "to": "LNVGY", "width": 1}, {"from": "HPQ", "to": "DELL", "width": 1}, {"from": "HPQ", "to": "NTAP", "width": 1}, {"from": "HPQ", "to": "AAPL", "width": 1}, {"from": "DELL", "to": "NTAP", "width": 1}, {"from": "DELL", "to": "AAPL", "width": 1}, {"from": "NTAP", "to": "LNVGY", "width": 1}, {"from": "NTAP", "to": "STX", "width": 1}, {"from": "NTAP", "to": "WDC", "width": 1}, {"from": "NTAP", "to": "LOGI", "width": 1}, {"from": "NTAP", "to": "PSTG", "width": 1}, {"from": "ORCL", "to": "IDAI", "width": 1}, {"from": "ORCL", "to": "NOW", "width": 1}, {"from": "ORCL", "to": "PANW", "width": 1}, {"from": "ORCL", "to": "VMW", "width": 1}, {"from": "ORCL", "to": "FTNT", "width": 1}, {"from": "ORCL", "to": "MSFT", "width": 1}, {"from": "IDAI", "to": "GEN", "width": 1}, {"from": "IDAI", "to": "NOW", "width": 1}, {"from": "IDAI", "to": "VMW", "width": 1}, {"from": "IDAI", "to": "PANW", "width": 1}, {"from": "IDAI", "to": "CRWD", "width": 1}, {"from": "IDAI", "to": "MSFT", "width": 1}, {"from": "IDAI", "to": "ZS", "width": 1}, {"from": "IDAI", "to": "FTNT", "width": 1}, {"from": "IDAI", "to": "CHKP", "width": 1}, {"from": "NOW", "to": "PANW", "width": 1}, {"from": "NOW", "to": "VMW", "width": 1}, {"from": "NOW", "to": "FTNT", "width": 1}, {"from": "NOW", "to": "CRWD", "width": 1}, {"from": "NOW", "to": "MSFT", "width": 1}, {"from": "PANW", "to": "VMW", "width": 1}, {"from": "PANW", "to": "FTNT", "width": 1}, {"from": "PANW", "to": "CRWD", "width": 1}, {"from": "PANW", "to": "CHKP", "width": 1}, {"from": "PANW", "to": "MSFT", "width": 1}, {"from": "VMW", "to": "FTNT", "width": 1}, {"from": "VMW", "to": "CRWD", "width": 1}, {"from": "VMW", "to": "CHKP", "width": 1}, {"from": "VMW", "to": "MSFT", "width": 1}, {"from": "FTNT", "to": "CRWD", "width": 1}, {"from": "FTNT", "to": "CHKP", "width": 1}, {"from": "CAN", "to": "PMTS", "width": 1}, {"from": "CAN", "to": "IMMR", "width": 1}, {"from": "CAN", "to": "IVAC", "width": 1}, {"from": "PMTS", "to": "IMMR", "width": 1}, {"from": "PMTS", "to": "IVAC", "width": 1}, {"from": "IMMR", "to": "IVAC", "width": 1}, {"from": "STX", "to": "LOGI", "width": 1}, {"from": "STX", "to": "LNVGY", "width": 1}, {"from": "STX", "to": "WDC", "width": 1}, {"from": "STX", "to": "PSTG", "width": 1}, {"from": "LNVGY", "to": "LOGI", "width": 1}, {"from": "LNVGY", "to": "WDC", "width": 1}, {"from": "LNVGY", "to": "PSTG", "width": 1}, {"from": "LOGI", "to": "PSTG", "width": 1}, {"from": "LOGI", "to": "WDC", "width": 1}, {"from": "LOGI", "to": "SMCI", "width": 1}, {"from": "PSTG", "to": "SMCI", "width": 1}, {"from": "PSTG", "to": "RICOY", "width": 1}, {"from": "PSTG", "to": "WDC", "width": 1}, {"from": "SMCI", "to": "RICOY", "width": 1}, {"from": "GEN", "to": "PATH", "width": 1}, {"from": "GEN", "to": "DLB", "width": 1}, {"from": "GEN", "to": "ZS", "width": 1}, {"from": "GEN", "to": "TMICY", "width": 1}, {"from": "GEN", "to": "CRWD", "width": 1}, {"from": "GEN", "to": "CHKP", "width": 1}, {"from": "PATH", "to": "CRWD", "width": 1}, {"from": "PATH", "to": "ZS", "width": 1}, {"from": "PATH", "to": "CHKP", "width": 1}, {"from": "DLB", "to": "ZS", "width": 1}, {"from": "ZS", "to": "CRWD", "width": 1}, {"from": "ZS", "to": "CHKP", "width": 1}, {"from": "CRWD", "to": "CHKP", "width": 1}]);
+
+                  nodeColors = {};
+                  allNodes = nodes.get({ returnType: "Object" });
+                  for (nodeId in allNodes) {
+                    nodeColors[nodeId] = allNodes[nodeId].color;
+                  }
+                  allEdges = edges.get({ returnType: "Object" });
+                  // adding nodes and edges to the graph
+                  data = {nodes: nodes, edges: edges};
+
+                  var options = {
+    "configure": {
+        "enabled": true
+    },
+    "edges": {
+        "color": {
+            "inherit": true
+        },
+        "smooth": {
+            "enabled": true,
+            "type": "dynamic"
+        }
+    },
+    "interaction": {
+        "dragNodes": true,
+        "hideEdgesOnDrag": false,
+        "hideNodesOnDrag": false
+    },
+    "physics": {
+        "enabled": true,
+        "stabilization": {
+            "enabled": true,
+            "fit": true,
+            "iterations": 1000,
+            "onlyDynamicEdges": false,
+            "updateInterval": 50
+        }
+    }
+};
+
+                  
+
+
+                  
+                  // if this network requires displaying the configure window,
+                  // put it in its div
+                  options.configure["container"] = document.getElementById("config");
+                  
+
+                  network = new vis.Network(container, data, options);
+
+                  
+
+                  
+
+                  
+
+
+                  
+
+                  return network;
+
+              }
+              drawGraph();
+        </script>
+    </body>
+</html>

@@ -33,7 +33,7 @@ class DataBase:
 
     def get_stock(self, stock_name):
         tmp = self.fetch(f"SELECT similar_tickers FROM Stocks WHERE stock_name='{stock_name}'")
-        return None if len(tmp) == 0 else self.string_to_list(tmp[0][0])
+        return None if len(tmp) == 0 else self.string_to_list(tmp[0][0])[1:]
 
     def seen_stocks(self):
         return set([x[0] for x in self.fetch("SELECT stock_name FROM Stocks")])
