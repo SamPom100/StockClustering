@@ -7,9 +7,14 @@ def create_database():
             """CREATE TABLE Stocks (
                 stock_ticker TEXT NOT NULL UNIQUE PRIMARY KEY, 
                 simple_name TEXT NOT NULL,
-                tags TEXT NOT NULL,
-                similar_tickers TEXT NOT NULL
-            );""").close()
+                tags TEXT NOT NULL
+            );
+            CREATE TABLE Similar (
+                stock_ticker TEXT NOT NULL,
+                similar_stocks TEXT NOT NULL,
+                FOREIGN KEY (stock_ticker) REFERENCES Stocks (stock_ticker)
+            );
+            """).close()
         print("DATABASE CREATED")
 
 class DataBase:
@@ -26,27 +31,32 @@ class DataBase:
         print("CONNECTED TO DB")
 
     def execute(self, query):
-        self.cursor.execute(query)
-        self.connection.commit()
+        try:
+            self.cursor.execute(query)
+            self.connection.commit()
+        except:
+            pass
     
     def fetch(self, query):
         self.cursor.execute(query)
         return self.cursor.fetchall()
 
-    def add_stock(self, stock_ticker, simple_name, tags, similar_tickers):
-        print("Added: ", stock_ticker)
-        self.execute(f"INSERT INTO Stocks VALUES ('{stock_ticker}', '{simple_name}', '{tags}', '{self.encode_list(similar_tickers)}')")
+    def add_stock(self, ticker, simple_name, tags):
+        self.execute(f"INSERT INTO Stocks VALUES ('{ticker}', '{simple_name}', '{self.encode_list(tags)}')")
+    
+    def add_similar(self, ticker, similar):
+        self.execute(f"INSERT INTO Similar VALUES ('{ticker}', '{self.encode_list(similar)}')")
+    
+    def get_similar(self, ticker):
+        return self.decode_list(self.fetch(f"SELECT similar_stocks FROM Similar WHERE stock_ticker='{ticker}'")[0][0])
 
-    def get_similar_tickers(self, stock_ticker):
-        tmp = self.fetch(f"SELECT similar_tickers FROM Stocks WHERE stock_ticker='{stock_ticker}'")
-        return None if len(tmp) == 0 else self.decode_list(tmp[0][0])
+    def get_indexed_stock_tickers(self):
+        return [x[0] for x in self.fetch("SELECT stock_ticker FROM Stocks")]
 
-    def seen_stocks(self):
-        return set([x[0] for x in self.fetch("SELECT stock_ticker FROM Stocks")])
+    def get_indexed_similar_tickers(self):
+        return [x[0] for x in self.fetch("SELECT stock_ticker FROM Similar")]
 
-    def new_stocks(self):
-        seen_stocks = self.seen_stocks()
-        similar_stocks = set()
-        for stock in seen_stocks:
-            similar_stocks.update(self.get_similar_tickers(stock))
-        return similar_stocks - seen_stocks
+    def get_new_jobs(self):
+        seen = self.get_indexed_stock_tickers()
+        similar = self.get_indexed_similar_tickers()
+        return [x for x in seen if x not in similar]
