@@ -1,11 +1,12 @@
 from database import DataBase
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
+import robin_stocks.robinhood as r
+import json
 
 
 
-
-class Scraper:
+class AlphaScraper:
     def __init__(self):
             chromedriver = "/chromedriver"
             option = webdriver.ChromeOptions()
@@ -25,4 +26,15 @@ class Scraper:
                 break
         res = self.browser.current_url
         return res[res.find('?compare=')+9:].split(',')
+
+class RobinScraper:
+    def __init__(self):
+        loginInfo = json.load(open('login_information.json'))
+        login = r.login(loginInfo['email'], loginInfo['password'])
+        self.r = r
+
+    def get_similar_tickers(self, ticker):
+        tickerId = self.r.stocks.id_for_stock(ticker)
+        res = self.r.helper.request_get('https://dora.robinhood.com/instruments/similar/'+tickerId+'/')['similar']
+        return [x['symbol'] for x in res]
 
