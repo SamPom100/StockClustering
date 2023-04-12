@@ -1,26 +1,57 @@
 <html>
-    <head>
+  <head>
+    <meta
+      property="og:image"
+      content="https://user-images.githubusercontent.com/28206070/231355451-87d0c3d3-9846-4e4f-a4dd-9d4be668a2c2.png"
+    />
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:url"
+      content="https://sampom100.github.io/StockClustering/"
+    />
+    <meta property="og:title" content="SamPom100 StockClustering" />
+    <meta
+      property="og:description"
+      content="Network of Robinhood-based Similar Stocks"
+    />
+    <link rel="icon" href="https://sampomerantz.me/favicon.ico" />
+    <title>SamPom100 StockClustering</title>
 
-        <meta property="og:image" content="https://user-images.githubusercontent.com/28206070/231355451-87d0c3d3-9846-4e4f-a4dd-9d4be668a2c2.png" />
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://sampom100.github.io/StockClustering/"/>
-        <meta property="og:title" content="SamPom100 StockClustering" />
-        <meta property="og:description" content="Network of Robinhood-based Similar Stocks"/>
-        <link rel="icon" href="https://sampomerantz.me/favicon.ico"/>
-        <title>SamPom100 StockClustering</title>
+    <meta charset="utf-8" />
 
-        <meta charset="utf-8">
-        
-            <script src="lib/bindings/utils.js"></script>
-            <link rel="preconnect" href="https://fonts.googleapis.com">
-            <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-            <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@700&display=swap" rel="stylesheet">
-            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
-            <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css" />
-            <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/v4-shims.css" />
-            <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
-            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/dist/vis-network.min.css" integrity="sha512-WgxfT5LWjfszlPHXRmBWHkV2eceiWTOBvrKCNbdgDYTHrT2AeLCGbF4sZlZw3UMN3WtL0tGUoIAKsu8mllg/XA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/vis-network.min.js" integrity="sha512-LnvoEWDFrqGHlHmDD2101OrLcbsfkrzoSpvtSQtxK3RMnRV0eOkhhBN2dXHKRrUU8p2DGRTk35n4O8nWSVe1mQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="lib/bindings/utils.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.13.0/css/all.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.13.0/css/v4-shims.css"
+    />
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/dist/vis-network.min.css"
+      integrity="sha512-WgxfT5LWjfszlPHXRmBWHkV2eceiWTOBvrKCNbdgDYTHrT2AeLCGbF4sZlZw3UMN3WtL0tGUoIAKsu8mllg/XA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/vis-network.min.js"
+      integrity="sha512-LnvoEWDFrqGHlHmDD2101OrLcbsfkrzoSpvtSQtxK3RMnRV0eOkhhBN2dXHKRrUU8p2DGRTk35n4O8nWSVe1mQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
 
     <center>
       <h1></h1>
@@ -44,82 +75,94 @@
       <h1></h1>
     </center>
     <style type="text/css">
+      #mynetwork {
+        width: 100%;
+        height: 100%;
+        background-color: #222222;
+        border: 1px solid lightgray;
+        position: relative;
+        float: left;
+      }
 
-        #mynetwork {
-            width: 100%;
-            height: 100%;
-            background-color: #222222;
-            border: 1px solid lightgray;
-            position: relative;
-            float: left;
+      body {
+        margin-top: -5%;
+        margin-left: -5%;
+        margin-right: -5%;
+        margin-bottom: -10%;
+      }
+
+      .note {
+        position: fixed;
+        z-index: 1;
+        background-color: white;
+        text-align: center;
+        border-radius: 10px;
+        bottom: 0%;
+        left: 0%;
+      }
+
+      .html {
+        font-family: "Ubuntu", sans-serif;
+      }
+
+      .note > h3 {
+        margin-bottom: 1px;
+        font-size: 40px;
+        margin-left: 5px;
+        font-weight: bold;
+      }
+
+      .fa,
+      .far,
+      .fab {
+        color: black;
+      }
+
+      @media (pointer: none), (pointer: coarse) {
+        .note > h3 {
+          margin-bottom: 1px;
+          font-size: 80px;
+          margin-left: 5px;
+          font-weight: bold;
         }
 
-        body {
-           margin-top: -5%;
-           margin-left: -5%;
-           margin-right: -5%;
-           margin-bottom: -10%;
+        .note > h8 {
+          font-size: 50px;
         }
 
-       .note {
-           position: fixed;
-           z-index: 1;
-           background-color: white;
-           text-align: center;
-           border-radius: 10px;
-           bottom: 0%;
-           left: 0%;
-       }
-
-       .html{
-           font-family: 'Ubuntu', sans-serif;
-       }
-
-       .note > h3{
-               margin-bottom: 1px;
-               font-size: 40px;
-               margin-left: 5px;
-               font-weight: bold;
-           }
-       
-       .fa,.far,.fab{
-           color: black;
-       }
-           
-       @media (pointer:none), (pointer:coarse) {
-           .note > h3{
-               margin-bottom: 1px;
-               font-size: 80px;
-               margin-left: 5px;
-               font-weight: bold;
-           }
-
-           .note > h8 {
-               font-size: 50px;
-           }
-
-           .note > .fa,.far,.fab{
-               font-size: 50px;
-               letter-spacing: 10px;
-               color: black;
-           }
-       }
-
-
-   </style>
+        .note > .fa,
+        .far,
+        .fab {
+          font-size: 50px;
+          letter-spacing: 10px;
+          color: black;
+        }
+      }
+    </style>
   </head>
 
   <body>
-    <div class="card" style="width: 100%; height: 100%;">
-        <div class="note">
-            
-            <h3>Clustering
-                <a href="https://github.com/SamPom100/StockClustering/" target="_blank"><i class="fa fa-github" style="margin-right: 8px;"></i></a>
-            </h3>
+    <div class="card" style="width: 100%; height: 100%">
+      <div class="note">
+        <h3>
+          Clustering
+          <a
+            href="https://github.com/SamPom100/StockClustering/"
+            target="_blank"
+            ><i class="fa fa-github" style="margin-right: 8px"></i
+          ></a>
+        </h3>
 
-            <h8>Sam Pomerantz <a href="https://www.linkedin.com/in/pomerantzsam/" target="_blank"><i class="fab fa-linkedin" style="margin-right: 8px; margin-left: 8px;"></i></a></h8>
-        </div>
-        <div id="mynetwork" class="card-body"></div>
+        <h8
+          >Sam Pomerantz
+          <a href="https://www.linkedin.com/in/pomerantzsam/" target="_blank"
+            ><i
+              class="fab fa-linkedin"
+              style="margin-right: 8px; margin-left: 8px"
+            ></i></a
+        ></h8>
+      </div>
+      <div id="mynetwork" class="card-body"></div>
     </div>
 
     <script type="text/javascript">
@@ -139,10 +182,19 @@
         value: [],
       };
 
+      function isMobile() {
+        const maxWidth = 767; // set the maximum width for mobile devices
+        return screen.width <= maxWidth;
+      }
+
       function loadGraph() {
         return new Promise(function (resolve, reject) {
           var xhr = new XMLHttpRequest();
-          xhr.open("GET", "graph.json", true);
+          if (isMobile()) {
+            xhr.open("GET", "graph_mobile.json", true);
+          } else {
+            xhr.open("GET", "graph.json", true);
+          }
           xhr.onreadystatechange = function () {
             if (xhr.readyState === 4) {
               if (xhr.status === 200) {
@@ -179,7 +231,6 @@
           nodeColors[nodeId] = allNodes[nodeId].color;
         }
         allEdges = edges.get({ returnType: "Object" });
-        // adding nodes and edges to the graph
         data = { nodes: nodes, edges: edges };
 
         var options = {
