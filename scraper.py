@@ -56,4 +56,3 @@ class RobinScraper:
     def get_info(self, tickerId):
         res = self.r.helper.request_get('https://api.robinhood.com/instruments/'+tickerId)
         return res['simple_name'], 
-

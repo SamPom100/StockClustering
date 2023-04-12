@@ -2,10 +2,16 @@ from database import *
 import networkx as nx
 import matplotlib.pyplot as plt
 import webbrowser
+from pyvis.network import Network
+
+import community
 
 database = DataBase()
 
+limit_size = False
 seen_stocks = database.get_indexed_similar_tickers()
+if limit_size:
+    seen_stocks = seen_stocks[:50]
 
 G = nx.Graph()
 
@@ -13,38 +19,46 @@ for stock in seen_stocks:
     G.add_node(stock)
     similar_stocks = database.get_similar(stock)
     for similar_stock in similar_stocks:
-        G.add_node(similar_stock)
-        G.add_edge(stock, similar_stock)
+        index = similar_stocks.index(similar_stock)
+        if index > 3:
+            G.add_edge(stock, similar_stock)
 
-from pyvis.network import Network
+partition = community.best_partition(G, resolution=4)
 
-net = Network(notebook=False, neighborhood_highlight=True)
-net.from_nx(G)
+subgraphs = {}
+for node, part in partition.items():
+    if part not in subgraphs:
+        subgraphs[part] = nx.Graph()
+    subgraphs[part].add_node(node)
+
+for edge in G.edges():
+    part1 = partition[edge[0]]
+    part2 = partition[edge[1]]
+    if part1 == part2:
+        subgraphs[part1].add_edge(edge[0], edge[1])
+
+combined_graph = nx.Graph()
+
+for subgraph in subgraphs.values():
+    combined_graph = nx.compose(combined_graph, subgraph)
+
+for node in combined_graph.nodes():
+    combined_graph.nodes[node]['color'] = partition[node]
+    combined_graph.nodes[node]['size'] = combined_graph.degree(node) * 1.5
+
+#nx.draw(combined_graph, with_labels=True)
+#plt.show()
+
+net = Network(bgcolor="#222222", font_color="white", height="1000px", width="1500px")
+net.from_nx(combined_graph)
 net.toggle_physics(False)
-"""
-:param gravity: The more negative the gravity value is, the stronger the
-                repulsion is.
-:param central_gravity: The gravity attractor to pull the entire network
-                        to the center. 
-:param spring_length: The rest length of the edges
-:param spring_strength: The strong the edges springs are
-:param damping: A value ranging from 0 to 1 of how much of the velocity
-                from the previous physics simulation iteration carries
-                over to the next iteration.
-:param overlap: When larger than 0, the size of the node is taken into
-                account. The distance will be calculated from the radius
-                of the encompassing circle of the node for both the
-                gravity model. Value 1 is maximum overlap avoidance.
-"""
-net.barnes_hut(
-            gravity=1000,
-            central_gravity=0,
-            spring_length=100,
-            spring_strength=0.1,
-            damping=0.05,
-            overlap=1
-    )
-net.show_buttons()
-net.save_graph('graph.html')
+net.toggle_drag_nodes(False)
 
+net.show_buttons(filter_=['physics'])
+
+net.save_graph("graph.html")
 webbrowser.open("file:///Users/sampomerantz/Documents/GitHub/StockClustering/graph.html")
+
+
+#save networkx in DOT format
+nx.nx_pydot.write_dot(combined_graph, "graph.dot")
