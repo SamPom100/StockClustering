@@ -73,16 +73,41 @@
                 left: 0%;
             }
 
-            .fa,
-            .far {
-            color: black;
-            font-size: 30px;
-            letter-spacing: 10px;
-            }
-
             .html{
                 font-family: 'Ubuntu', sans-serif;
             }
+
+            .note > h3{
+                    margin-bottom: 1px;
+                    font-size: 40px;
+                    margin-left: 5px;
+                    font-weight: bold;
+                }
+            
+            .fa,.far,.fab{
+                color: black;
+            }
+                
+            @media (pointer:none), (pointer:coarse) {
+                .note > h3{
+                    margin-bottom: 1px;
+                    font-size: 80px;
+                    margin-left: 5px;
+                    font-weight: bold;
+                }
+
+                .note > h8 {
+                    font-size: 50px;
+                }
+
+                .note > .fa,.far,.fab{
+                    font-size: 50px;
+                    letter-spacing: 10px;
+                    color: black;
+                }
+            }
+
+
         </style>
     </head>
 
@@ -90,14 +115,12 @@
     <body>
         <div class="card" style="width: 100%; height: 100%;">
             <div class="note">
-                <h3 style="margin-bottom: 1px;
-                            font-size: 30px;
-                            margin-left: 5px;
-                            font-weight: bold;
-                ">Stock Clustering
-                    <a href="https://github.com/SamPom100/StockClustering/" target="_blank"><i class="fa fa-github"></i></a>
-                    <a href="https://www.linkedin.com/in/pomerantzsam/" target="_blank"><i class="fa fa-linkedin"></i></a>
+                
+                <h3>Clustering
+                    <a href="https://github.com/SamPom100/StockClustering/" target="_blank"><i class="fa fa-github" style="margin-right: 8px;"></i></a>
                 </h3>
+
+                <h8>Sam Pomerantz <a href="https://www.linkedin.com/in/pomerantzsam/" target="_blank"><i class="fab fa-linkedin" style="margin-right: 8px; margin-left: 8px;"></i></a></h8>
             </div>
             <div id="mynetwork" class="card-body"></div>
         </div>
