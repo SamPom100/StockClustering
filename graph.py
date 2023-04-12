@@ -56,12 +56,9 @@ net.toggle_drag_nodes(False)
 
 #net.show_buttons(filter_=['physics'])
 
-net.save_graph("graph.html")
+net.save_graph("index.html")
 
-
-
-
-webbrowser.open("file:///Users/sampomerantz/Documents/GitHub/StockClustering/graph.html")
+webbrowser.open("file:///Users/sampomerantz/Documents/GitHub/StockClustering/index.html")
 
 #visualize using Netwulf
 
