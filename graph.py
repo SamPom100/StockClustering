@@ -11,7 +11,7 @@ database = DataBase()
 limit_size = True
 seen_stocks = database.get_indexed_similar_tickers()
 if limit_size:
-    seen_stocks = seen_stocks[:50]
+    seen_stocks = seen_stocks[:60]
 
 G = nx.Graph()
 
