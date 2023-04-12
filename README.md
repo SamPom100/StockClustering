@@ -3,6 +3,11 @@
 ## About
 Project attempting to visualize the market as a connected graph, based on user preferences scraped from Robinhood / Seeking Alpha
 
+## Website
+https://sampom100.github.io/StockClustering/
+<img width="1240" alt="preview" src="https://user-images.githubusercontent.com/28206070/231355451-87d0c3d3-9846-4e4f-a4dd-9d4be668a2c2.png">
+
+
 ### Graph (work in progress)
 <img width="1023" alt="Screenshot 2023-04-11 at 12 53 16 AM" src="https://user-images.githubusercontent.com/28206070/231059678-89d4d983-72e5-4fba-93bd-3e689565269d.png">
 <img width="946" alt="Screenshot 2023-04-11 at 12 52 22 AM" src="https://user-images.githubusercontent.com/28206070/231059680-1c160607-b3d6-407e-a7e3-617cac69cf70.png">
