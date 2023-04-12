@@ -64,5 +64,5 @@ if __name__ == "__main__":
     seen_stocks = database.get_indexed_similar_tickers()
     generate_graph(seen_stocks, "graph.json")
 
-    seen_stocks = seen_stocks[:100]
+    seen_stocks = seen_stocks[:30]
     generate_graph(seen_stocks, "graph_mobile.json")
