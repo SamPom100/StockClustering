@@ -11,7 +11,7 @@ database = DataBase()
 limit_size = True
 seen_stocks = database.get_indexed_similar_tickers()
 if limit_size:
-    seen_stocks = seen_stocks[:30]
+    seen_stocks = seen_stocks[:50]
 
 G = nx.Graph()
 
@@ -53,6 +53,7 @@ net = Network(bgcolor="#222222", font_color="white", height="100%", width="100%"
 net.from_nx(combined_graph)
 net.toggle_physics(True)
 net.toggle_drag_nodes(True)
+net.toggle_hide_edges_on_drag(True)
 
 net.save_graph("index.html")
 
