@@ -15,7 +15,7 @@
       content="Network of Robinhood-based Similar Stocks"
     />
     <link rel="icon" href="https://sampomerantz.me/favicon.ico" />
-    <title>SamPom100 StockClustering</title>
+    <title>RobinClusters</title>
 
     <meta charset="utf-8" />
 
@@ -118,6 +118,33 @@
         color: black;
       }
 
+      .searchBox {
+          border: 2px solid #ebebeb;
+          font-family: inherit;
+          font-size: 20px;
+          padding: 0 1px;
+          border-radius: 1.25rem;
+          transition: all 0.375s;
+          margin-left: 5px;
+          margin-top: 15px;
+          text-align: center;
+          }
+
+        .searchButton {
+          display: inline-block;
+          width: 70px;
+          padding: 6px 0px;
+          border-radius: 15px;
+          background: var(black);
+          color: black;
+          font-weight: 500;
+          font-size: 15px;
+          border: none;
+          cursor: pointer;
+          transition: all .3s ease;
+          margin-right: 5px;
+        }
+
       @media (pointer: none), (pointer: coarse) {
         .note > h3 {
           margin-bottom: 1px;
@@ -137,6 +164,33 @@
           letter-spacing: 10px;
           color: black;
         }
+
+        .searchBox {
+          border: 2px solid #ebebeb;
+          font-family: inherit;
+          font-size: 20px;
+          padding: 10px 60px;
+          border-radius: 1.25rem;
+          transition: all 0.375s;
+          margin-left: 5px;
+          margin-top: 15px;
+          text-align: center;
+          }
+
+        .searchButton {
+          display: inline-block;
+          width: 20%;
+          padding: 15px 0px;
+          border-radius: 15px;
+          background: var(black);
+          color: black;
+          font-weight: 500;
+          font-size: 20px;
+          border: none;
+          cursor: pointer;
+          transition: all .3s ease;
+          margin-right: 5px;
+        }
       }
     </style>
   </head>
@@ -144,11 +198,14 @@
   <body>
     <div class="card" style="width: 100%; height: 100%">
       <div class="note">
+        <form onSubmit="return false;" style="margin-bottom: 8px;">
+        <input type="input" id="searchInput" class="searchBox"></input>
+        <button onclick="focusOnNode()" value="submit" class="searchButton">Search</button>
+      </form>
         <h3>
-          Clustering
+          RobinClusters
           <a
-            href="https://github.com/SamPom100/StockClustering/"
-            target="_blank"
+            href="https://github.com/SamPom100/StockClustering/"target="_blank"
             ><i class="fa fa-github" style="margin-right: 8px"></i
           ></a>
         </h3>
@@ -209,6 +266,18 @@
         });
       }
 
+      function focusOnNode() {
+        const nodeName = document.getElementById("searchInput").value;
+        network.focus(nodeName.toUpperCase(), {
+          scale: 5,
+          animation: {
+            locked: true,
+            duration: 1000,
+            easingFunction: "easeInOutQuad"}
+        })
+        document.getElementById("searchInput").value = "";
+      }
+
       // This method is responsible for drawing the graph, returns the drawn network
       async function drawGraph() {
         var container = document.getElementById("mynetwork");
@@ -252,6 +321,9 @@
             hideNodesOnDrag: false,
           },
           physics: {
+            repulsion: {
+              damping: 0.5,
+            },
             enabled: true,
             stabilization: {
               enabled: false,

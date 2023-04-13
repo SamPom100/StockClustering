@@ -85,17 +85,15 @@ class DataBase:
     def similar_score(self, ticker1, ticker2):
         similar1 = self.get_similar(ticker1)
         similar2 = self.get_similar(ticker2)
+        list.reverse(similar1)
+        list.reverse(similar2)
         try:
-            index1 = len(similar1) - similar1.index(ticker2)
+            similar1_index = similar1.index(ticker2)+1
         except:
-            index1 = 0
-        
+            similar1_index = 0
         try:
-            index2 = len(similar2) - similar2.index(ticker1)
+            similar2_index = similar2.index(ticker1)+1
         except:
-            index2 = 0
+            similar2_index = 0
 
-        #index of 0 is best
-        #index of len is worst
-
-        return (index1 + index2) / 2
+        return (similar1_index + similar2_index) / 2

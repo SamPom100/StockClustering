@@ -1,7 +1,6 @@
 from database import *
 import networkx as nx
 import matplotlib.pyplot as plt
-import webbrowser
 from pyvis.network import Network
 import community
 
@@ -14,9 +13,20 @@ def generate_graph(seen_stocks, filename):
         G.add_node(stock)
         similar_stocks = database.get_similar(stock)
         for similar_stock in similar_stocks:
-            index = similar_stocks.index(similar_stock)
-            if index < 5:
-                G.add_edge(stock, similar_stock)
+            similarity_score = database.similar_score(stock, similar_stock) / 3
+            if similarity_score <= 1:
+                weight = 0.01
+            elif similarity_score <= 2:
+                weight = 0.05
+            elif similarity_score <= 3:
+                weight = 0.2
+            elif similarity_score <= 4:
+                weight = 0.8
+            elif similarity_score <= 5:
+                weight = 1.5
+            else:
+                weight = 3
+            G.add_edge(stock, similar_stock, weight=weight)
 
     partition = community.best_partition(G, resolution=20)
 
@@ -30,7 +40,7 @@ def generate_graph(seen_stocks, filename):
         part1 = partition[edge[0]]
         part2 = partition[edge[1]]
         if part1 == part2:
-            subgraphs[part1].add_edge(edge[0], edge[1])
+            subgraphs[part1].add_edge(edge[0], edge[1], weight=G.edges[edge]['weight'])
 
     combined_graph = nx.Graph()
 
@@ -39,26 +49,17 @@ def generate_graph(seen_stocks, filename):
 
     for node in combined_graph.nodes():
         combined_graph.nodes[node]['color'] = partition[node]
-        combined_graph.nodes[node]['size'] = combined_graph.degree(node) * 1.5
+        combined_graph.nodes[node]['size'] = combined_graph.degree(node) * 0.8
 
     net = Network(bgcolor="#222222", font_color="white", height="100rem", width="100%")
     net.from_nx(combined_graph)
-    # net.toggle_physics(True)
-    # net.toggle_drag_nodes(True)
-    # net.toggle_hide_edges_on_drag(True)
-    # net.barnes_hut(
-    #     overlap=1,
-    #     damping=1,
-    # )
-
-    # net.save_graph("index2.html")
     nodes, edges, heading, height, width, options = net.get_network_data()
 
     tmp_dict = {"nodes": nodes, "edges": edges}
     with open(filename, "w") as f:
         json.dump(tmp_dict, f)
 
-    print("EXPORTED GRAPH")
+    print("EXPORTED ", filename)
 
 if __name__ == "__main__":
     seen_stocks = database.get_indexed_similar_tickers()
