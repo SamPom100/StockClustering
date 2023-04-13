@@ -49,7 +49,8 @@ def generate_graph(seen_stocks, filename):
 
     for node in combined_graph.nodes():
         combined_graph.nodes[node]['color'] = partition[node]
-        combined_graph.nodes[node]['size'] = combined_graph.degree(node) * 0.8
+        #combined_graph.nodes[node]['size'] = combined_graph.degree(node) * 0.8
+        combined_graph.nodes[node]['size'] = 0.7*sum([combined_graph.edges[edge]['weight'] for edge in combined_graph.edges(node)])
 
     net = Network(bgcolor="#222222", font_color="white", height="100rem", width="100%")
     net.from_nx(combined_graph)
