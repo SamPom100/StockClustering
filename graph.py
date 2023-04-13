@@ -62,9 +62,6 @@ def generate_graph(seen_stocks, filename):
 
     print("EXPORTED ", filename)
 
-    net.force_atlas_2based()
-    net.save_graph("tt.html")
-
 if __name__ == "__main__":
     seen_stocks = database.get_indexed_similar_tickers()
     generate_graph(seen_stocks, "graph.json")
