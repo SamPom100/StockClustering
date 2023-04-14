@@ -3,6 +3,9 @@
 ## About
 Project attempting to visualize the market as a connected graph, based on user preferences scraped from Robinhood / Seeking Alpha
 
+![Screenshot_2023-04-14_at_1 41 24_AM](https://user-images.githubusercontent.com/28206070/231951470-d84b3c7c-184f-4a17-a6ba-a50771ba2b82.png)
+^ basically this, plus a lot of network theory, visualized
+
 ## Website
 
 # https://sampomerantz.me/clustering
