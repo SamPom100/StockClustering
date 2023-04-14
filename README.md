@@ -5,7 +5,7 @@ Project attempting to visualize the market as a connected graph, based on user p
 
 ## Website
 
-# https://sampom100.github.io/StockClustering/
+# https://sampomerantz.me/clustering
 
 <img width="1082" alt="cluster" src="https://user-images.githubusercontent.com/28206070/231950065-4bc0fefc-984f-4ede-a45a-308d2a557a7f.png">
 
