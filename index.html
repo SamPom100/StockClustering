@@ -54,7 +54,7 @@
         background-color: white;
         text-align: center;
         border-radius: 10px;
-        bottom: 0%;
+        top: 0%;
         left: 0%;
       }
 
@@ -155,16 +155,16 @@
   <body style="background-color: rgb(34, 34, 34); font-size: 16px;">
     <div>
       <div class="note">
-        <form onSubmit="return false;" style="margin-bottom: 8px; font-size: 16px;">
-        <input type="input" id="searchInput" class="searchBox" style="font-size: 16px;"></input>
-        <button onclick="focusOnNode()" value="submit" class="searchButton">Search</button>
-      </form>
         <h3>
-          RobinClusters<a href="https://github.com/SamPom100/StockClustering/"target="_blank"><i class="fa fa-github" style="margin-right: 8px"></i></a>
+          RobinClusters<a href="https://github.com/SamPom100/StockClustering/"target="_blank"><i class="fa fa-github" style="margin-right: 8px; margin-top: 15px;"></i></a>
         </h3>
         <h8>
           Sam Pomerantz<a href="https://www.linkedin.com/in/pomerantzsam/" target="_blank"><i class="fab fa-linkedin" style="margin-right: 8px; margin-left: 8px"></i></a>
         </h8>
+        <form onSubmit="return false;" style="margin-bottom: 8px; font-size: 16px;">
+          <input type="input" id="searchInput" class="searchBox" style="font-size: 16px;"></input>
+          <button onclick="focusOnNode()" value="submit" class="searchButton">Search</button>
+        </form>
       </div>
       <div id="mynetwork" class="card-body" style="padding: 0px;"></div>
     </div>
