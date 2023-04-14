@@ -254,6 +254,7 @@
             enabled: false,
           },
           edges: {
+            hidden: true,
             color: {
               inherit: true,
             },
@@ -298,6 +299,10 @@
         return network;
       }
       drawGraph();
+      setTimeout(function () {
+        network.setOptions({edges: {hidden: false}})
+      }, 1500);
+
     </script>
   </body>
 </html>
