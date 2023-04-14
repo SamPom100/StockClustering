@@ -37,7 +37,6 @@
     ></script>
 
     <style type="text/css">
-      
 
       #mynetwork {
         width: 100%;
@@ -124,9 +123,10 @@
 
         .searchBox {
           border: 2px solid #ebebeb;
+          width: 70%;
           font-family: inherit;
-          font-size: 1rem;
-          padding: 10px 60px;
+          font-size: 2.3rem;
+          padding: 0 1px;
           border-radius: 1.25rem;
           transition: all 0.375s;
           margin-left: 5px;
@@ -136,13 +136,13 @@
 
         .searchButton {
           display: inline-block;
-          width: 20%;
-          padding: 15px 0px;
+          width: 8rem;
+          padding: 6px 0px;
           border-radius: 15px;
           background: var(black);
           color: black;
-          font-weight: 500;
-          font-size: 1rem;
+          font-weight: 400;
+          font-size: 2.3rem;
           border: none;
           cursor: pointer;
           transition: all .3s ease;
@@ -161,8 +161,8 @@
         <h8>
           Sam Pomerantz<a href="https://www.linkedin.com/in/pomerantzsam/" target="_blank"><i class="fab fa-linkedin" style="margin-right: 8px; margin-left: 8px"></i></a>
         </h8>
-        <form onSubmit="return false;" style="margin-bottom: 8px; font-size: 16px;">
-          <input type="input" id="searchInput" class="searchBox" style="font-size: 16px;"></input>
+        <form onSubmit="return false;" style="margin-bottom: 8px;">
+          <input type="text" id="searchInput" class="searchBox" value=""></input>
           <button onclick="focusOnNode()" value="submit" class="searchButton">Search</button>
         </form>
       </div>
