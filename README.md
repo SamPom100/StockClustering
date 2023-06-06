@@ -2,7 +2,7 @@
 
 ## Website
 
-# https://sampomerantz.me/clustering
+# [https://sampomerantz.me/clustering](https://sampom100.github.io/StockClustering/)
 
 ## About
 Project attempting to visualize the market as a connected graph, based on user preferences scraped from Robinhood / Seeking Alpha
