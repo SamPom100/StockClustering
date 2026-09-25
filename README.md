@@ -27,3 +27,7 @@ Project attempting to visualize the market as a connected graph, based on user p
 
 
 <img width="932" alt="Screenshot 2023-04-11 at 12 47 15 AM" src="https://user-images.githubusercontent.com/28206070/231058862-d44c9838-a31b-43d0-9d1e-72a9056a9536.png">
+
+---
+
+Created by [Sam Pomerantz](https://sampomerantz.me)
